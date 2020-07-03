@@ -9,6 +9,11 @@ package com.kunyao.code.array;
  */
 public class SearchInsert_35 {
 
+    public static void main(String[] args) {
+        int[] arr = {1, 3, 5, 6};
+
+        System.out.println(searchInsert(arr, 2));
+    }
 
     /**
      * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。
@@ -17,19 +22,21 @@ public class SearchInsert_35 {
      * @param target
      * @return
      */
-    public int searchInsert(int[] nums, int target) {
+    public static int searchInsert(int[] nums, int target) {
 
-        if(nums.length == 0){
-            return -1;
-        }
-        int insertIndex = nums.length - 1;
-        int insertVal = target;
-        while(insertIndex >= 0 && insertVal < nums[insertIndex]){
-            //将有序表的容量加一
-            nums[insertIndex + 1] = nums[insertIndex];
+        int left = 0, right = nums.length - 1;
 
-            insertIndex--;
+        while(left < right){
+            int mid = (left + right) / 2;
+            if(nums[mid] == target){
+                return mid;
+            }else if(nums[mid] < target){
+                left = mid + 1;
+            }else {
+                right = mid - 1;
+            }
         }
-        return insertIndex;
+
+        return nums[left] < target ? left + 1: left;
     }
 }
